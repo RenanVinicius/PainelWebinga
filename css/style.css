@@ -1,0 +1,127 @@
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+    display: block;
+}
+body{
+	font-family: "Lato";
+	font-size: 16px;
+	margin: 0px;
+	padding: 0px;
+	cursor:default;
+	color: #777777;
+	background-image: url(../img/body.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+	background-color: #fff;
+}
+h1{
+	font-family: inherit;
+	font-size: 24px;
+	color: #E26602;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	font-weight: 300;
+}
+h2, h3{
+	font-family: inherit;
+	font-size: 24px;
+	color: #777;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	font-weight: 300;
+}
+a{
+	text-decoration: none;
+	transition-duration: 0.5s;
+	color: #777;
+}
+a:hover{
+	color:#E06600;
+	transition-duration:0.3s;
+}
+img{
+	border:0;
+}
+strong{
+	font-weight:500;
+}
+p{
+	margin: 0;
+}
+input[type=email], input[type=text], input[type=password], input[type=search],select, textarea{
+	padding: 10px;
+	font-family: inherit;
+	color: #777777;
+	outline: none;
+	background-color: #fff;
+	border:solid 1px #DDDDDD;
+}
+input[type=submit], input[type=reset]{
+	font-family: inherit;
+	color: #FFF;
+	text-decoration: none;
+	padding: 5px;
+	cursor: pointer;
+	outline: none;
+	font-size: 16px;
+	border: 0;
+	background-color: #E26602;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+.clear{
+	clear:both;
+}
+
+#paginacao{
+	margin-top:10px; margin-bottom:10px;
+	height:26px;
+}
+#paginacao ul{
+	margin:0; padding:0;
+}
+#paginacao li{
+	list-style:none;
+}
+#paginacao li a{
+	float:left;
+	background-color:#FEA256;
+	padding-left:5px; padding-right:5px;
+	padding-bottom:2px; padding-top:2px;
+	margin-left:3px;
+	color: #fff;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+#paginacao li a:hover{
+	background-color: #E26602;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	color:#fff;
+}
+#paginacao span{
+	float:left;
+	margin-top:2px;
+}
+#paginacao ul .selected{
+	background-color: #E26602;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	color:#fff;
+}
+/*
+===========================================================================
+HEADER
+===========================================================================
+*/

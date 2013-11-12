@@ -1,0 +1,44 @@
+header{
+	height: 150px;
+	position: relative;
+}
+header .logo a{
+	background-image: url(../img/logo.png);
+	display: block;
+	height: 86px;
+	width: 325px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-top: 25px;
+	float: left;
+}
+#button-administracao{
+	float: right;
+	margin-top: 50px;
+	margin-right:10px;
+}
+#button-mensagens{
+	float: right;
+	margin-top: 50px;
+	margin-right: 5px;
+}
+#button-sair{
+	float: right;
+	margin-top: 50px;
+	margin-right: 0px;
+}
+
+
+/*
+===========================================================================
+ATUALIZACAO
+===========================================================================
+*/
+#atualizacao .alert{
+	text-align: center;
+}
+/*
+===========================================================================
+ATUALIZACAO
+===========================================================================
+*/
