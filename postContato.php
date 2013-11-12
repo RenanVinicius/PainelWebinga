@@ -6,6 +6,8 @@
 
 	extract($_POST);
 
+	//Configurações do envio
+	$nomeForm = "formContato";
 	
 	if(strip_tags($nomeC) == false){
 		echo 'Preencha o nome.';
@@ -78,7 +80,7 @@
 	';
 	}else{
 		echo '
-Erro ao enviar.
+		Erro ao enviar.
 		<script type="text/javascript">
 		document.formContato.reset();
 		</script>';
