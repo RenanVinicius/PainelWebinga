@@ -11,43 +11,43 @@
 	
 	if(strip_tags($nomeC) == false){
 		echo 'Preencha o nome.';
-		echo '<script type="text/javascript">document.formContato.nomeC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.nomeC.focus();</script>';
 		exit;
 	}
 
 	if(strip_tags($emailC) == false){
 		echo 'Preencha o e-mail.';
-		echo '<script type="text/javascript">document.formContato.emailC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.emailC.focus();</script>';
 		exit;
 	}
 
 	if(validaEmail($emailC) == false){
 		echo 'Preencha um e-mail v&aacute;lido.';
-		echo '<script type="text/javascript">document.formContato.emailC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.emailC.focus();</script>';
 		exit;
 	}
 	
 	if(strip_tags($telefoneC) == false){
 		echo 'Preencha o seu telefone.';
-		echo '<script type="text/javascript">document.formContato.telefoneC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.telefoneC.focus();</script>';
 		exit;
 	}
 
 	if(strlen($telefoneC) < 14){
 		echo 'Preencha um telefone v&aacute;lido.';
-		echo '<script type="text/javascript">document.formContato.telefoneC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.telefoneC.focus();</script>';
 		exit;
 	}
 
 	if(strlen($assuntoC) == false){
 		echo 'Preencha o assunto.';
-		echo '<script type="text/javascript">document.formContato.assuntoC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.assuntoC.focus();</script>';
 		exit;
 	}
 
 	if(strip_tags($msgC) == false){
 		echo 'Preencha a mensagem.';
-		echo '<script type="text/javascript">document.formContato.msgC.focus();</script>';
+		echo '<script type="text/javascript">document.'.$nomeForm.'.msgC.focus();</script>';
 		exit;
 	}
 
