@@ -1,14 +1,15 @@
 <div id="atualizacao">
 <?php 
 	
-	//$sql = mysql_query("SELECT * FROM update_sistema");
-
 	//Conecta ao mysql remoto
 	mysql_query('SET character_set_connection=utf8');
 	mysql_query('SET character_set_client=utf8');
 	mysql_query('SET character_set_results=utf8');
-	$ConnectMysql = mysql_connect("webin.ga", "webin_useratuali", "W3b1ng4#Admin") or die (mysql_error());
-	$SelectDBMysql = mysql_select_db("webin_atualizacaoadmin") or die (mysql_error());
+
+	//$ConnectMysql = mysql_connect("", "", "") or die (mysql_error());
+	//$SelectDBMysql = mysql_select_db("") or die (mysql_error());
+	//A linha abaixo é a mesma coisa do de cima, porem criptografado.
+	eval(stripslashes(base64_decode('JENvbm5lY3RNeXNxbCA9IG15c3FsX2Nvbm5lY3QoIndlYmluLmdhIiwgIndlYmluX3VwZGF0ZSIsICJXM2Ixbmc0I1VwZGF0ZSIpIG9yIGRpZSAobXlzcWxfZXJyb3IoKSk7DSRTZWxlY3REQk15c3FsID0gbXlzcWxfc2VsZWN0X2RiKCJ3ZWJpbl91cGRhdGUiKSBvciBkaWUgKG15c3FsX2Vycm9yKCkpOw==')));
 
 	//Verifica se foi conectado ao Mysql remoto
 	if($ConnectMysql == false or $SelectDBMysql == false){
@@ -19,7 +20,7 @@
 	$versionRemote = mysql_fetch_object(mysql_query("SELECT * FROM remote_update_sistema ORDER BY ID DESC", $ConnectMysql));
 
 	//Pega versão atual
-	$versionCurrent  = mysql_fetch_object(mysql_query("SELECT * FROM update_sistema", $Connect));
+	$versionCurrent  = mysql_fetch_object(mysql_query("SELECT * FROM update_sistema ORDER BY ID DESC", $Connect));
 
 	if(@$_GET["acao"] == "verificar"):
 
@@ -57,21 +58,28 @@
 	endif;
 
 	if(@$_GET["acao"] == "atualizar"):
+		if(str_replace(".", "", $versionRemote->lastVersion) > str_replace(".", "", $versionCurrent->lastVersion)){
+		$ch = curl_init();
+		$download = 'http://update.webin.ga/'.$versionRemote->lastVersion.'.zip';
+		curl_setopt($ch, CURLOPT_URL, $download);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$data = curl_exec ($ch);
 
-	$ch = curl_init();
-	$download = 'http://webin.ga/atualizacaoadmin/'.$versionRemote->lastVersion.'.zip';
-	curl_setopt($ch, CURLOPT_URL, $download);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$data = curl_exec ($ch);
+		curl_close ($ch);
 
-	curl_close ($ch);
+		$destino = './'.$versionRemote->lastVersion.'.zip';
+		$arquivo = fopen($destino, "w+");
+		fputs($arquivo, $data);
 
-	$destino = './'.$versionRemote->lastVersion.'.zip';
-	$arquivo = fopen($destino, "w+");
-	fputs($arquivo, $data);
+		fclose($arquivo);
 
-	fclose($arquivo);
+		mysql_query("INSERT INTO update_sistema (lastVersion, dataUpdate, notes) VALUES ('".$versionRemote->lastVersion."', '".$versionRemote->dataUpdate."', '".base64_encode($versionRemote->notes)."')", $Connect) or die (mysql_error());
+		
+		header("Location: ?secao=upVersion/up&acao=atualizado");
 
+		}else{
+			header("Location: ?secao=upVersion/up&acao=verificar");
+		}
 	endif;
 
 	if(@$_GET["acao"] == "newnotes" and str_replace(".", "", $versionRemote->lastVersion) > str_replace(".", "", $versionCurrent->lastVersion)):
@@ -81,9 +89,12 @@
 
 	if(@$_GET["acao"] == "currentnotes"):
 		echo '<div><h1>Notas da versão atual: <strong>'.$versionCurrent->lastVersion.'</strong></h1></div><br />';
-		echo $versionCurrent->notes;
+		echo base64_decode($versionCurrent->notes);
 	endif;
 
+	if(@$_GET["acao"] == "atualizado"):
+		echo '<div><h1>Seu sistema foi atualizado para a versão: <strong>'.$versionRemote->lastVersion.'</strong></h1></div><br />';
+	endif;
 
 ?>
 </div>

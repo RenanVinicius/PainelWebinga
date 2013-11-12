@@ -3,15 +3,9 @@
 	#Conexão Site
 	define("TIPOBANCO", "mysql");
 	define("HOST", "localhost");
-	define("BANCO", "site1.0");
+	define("BANCO", "PainelWebinga");
 	define("USER", "root");
 	define("PASS", "");
-	
-	/*define("TIPOBANCO", "mysql");
-	define("HOST", "mysql.portalfikadica.com.br");
-	define("BANCO", "portalfikadica");
-	define("USER", "portalfikadica");
-	define("PASS", "1q2w3e4r");*/
 	
 	$Connect = mysql_connect(HOST, USER, PASS) or die (mysql_error());
 	$Select = mysql_select_db(BANCO) or die (mysql_error());
