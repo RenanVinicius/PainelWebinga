@@ -58,7 +58,11 @@
 	endif;
 
 	if(@$_GET["acao"] == "atualizar"):
+		
+		//Verifica se ainda não foi atualizado
 		if(str_replace(".", "", $versionRemote->lastVersion) > str_replace(".", "", $versionCurrent->lastVersion)){
+
+		//Baixa o arquivo do ftp
 		$ch = curl_init();
 		$download = 'http://update.webin.ga/'.$versionRemote->lastVersion.'.zip';
 		curl_setopt($ch, CURLOPT_URL, $download);
@@ -73,6 +77,17 @@
 
 		fclose($arquivo);
 
+		//Desconpacta o arquivo
+		$zip = new ZipArchive;
+		if ($zip->open('./'.$versionRemote->lastVersion.'.zip') == true) {
+		    $zip->extractTo("./");
+		    $zip->close();
+		}
+
+		//Aapaga o arquivo baixado
+		unlink('./'.$versionRemote->lastVersion.'.zip');
+
+		//Atualiza no banco de dados
 		mysql_query("INSERT INTO update_sistema (lastVersion, dataUpdate, notes) VALUES ('".$versionRemote->lastVersion."', '".$versionRemote->dataUpdate."', '".base64_encode($versionRemote->notes)."')", $Connect) or die (mysql_error());
 		
 		header("Location: ?secao=upVersion/up&acao=atualizado");
@@ -80,6 +95,7 @@
 		}else{
 			header("Location: ?secao=upVersion/up&acao=verificar");
 		}
+
 	endif;
 
 	if(@$_GET["acao"] == "newnotes" and str_replace(".", "", $versionRemote->lastVersion) > str_replace(".", "", $versionCurrent->lastVersion)):
