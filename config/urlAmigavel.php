@@ -10,13 +10,13 @@
 	$separaPastas = explode("/", $pastas);
 
 	//Coloquei aqui o total de pastas
-	define("TOTAL_PASTAS", 2);
+	define("TOTAL_PASTAS", 1);
 
 
 	if(TOTAL_PASTAS == 2){
 		define("PASTA_SITE", $separaPastas[1]."/".$separaPastas[2]);
 	}else{
-		define("PASTA_SITE", $separaPastas[1]);
+		define("PASTA_SITE", "");
 	}
 
 	#Retorna o domínio completo
@@ -41,7 +41,7 @@
 			if(TOTAL_PASTAS == 2){
 				return $seo[$params+2];
 			}else{
-				return $seo[$params+1];
+				return $seo[$params];
 			}
 		}else{
 			return $seo[$params];
