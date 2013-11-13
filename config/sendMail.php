@@ -4,6 +4,9 @@
 		
 		#$nomeDestino = Nome de quem vai receber
 		#$emailDestino = E-mail de quem vai receber
+		#obs Caso $emailDestino tenha mais de um destino os e-mail devem estar separado por ;
+		# Exp: email@email.com.br;email2@email.com.br;email3@email.com.br
+
 		#$nomeRemetente = Nome de quem está enviando
 		#$emailRemetente = E-mail de quem está enviando
 		#$assunto = Assunto do e-mail
@@ -20,7 +23,14 @@
 		$mail->AddReplyTo($emailRemetente, $nomeRemetente);
 		$mail->Subject    = $assunto;
 		$mail->MsgHTML($msg);
-		$mail->AddAddress($emailDestino, $nomeDestino);
+
+		$emails = explode(';',$emailDestino);
+
+		foreach($emails as $chave => $valEmail){
+			if($valEmail != ''){
+				$mail->AddAddress($valEmail, $nomeDestino);
+			}
+		}
 
 		if(!$mail->Send()) {
 		  return false;
